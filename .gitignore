@@ -1,5 +1,6 @@
 #node.js module foler
 /node_modules
+/.serverless
 
 #env file
 .env
