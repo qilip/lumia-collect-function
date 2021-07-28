@@ -1,20 +1,30 @@
-const mongoose = require('mongoose');
-
+const mongo = require('./connectdb.js');
 const er = require('./er.js');
 
-let conn = null;
+const funcMapper = {
+  getUserNum: p => er.getUserNum(p.nickname),
+  getUserRank: p => er.getUserRank(p.userNum, p.seasonId),
+  getUserStats: p => er.getUserStats(p.userNum, p.seasonId),
+  getUserGames: p => er.getUserGames(p.userNum),
+  getGame: p => er.getGame(p.gameId),
+  getRoute: p => er.getRoute(p.gameId)
+};
 
 module.exports.handler = async (event, ctx) => {
-  // connect mongodb
   ctx.callBackWaitsForEmptyEventLoop = false;
-  if(conn == null){
-    conn = mongoose.connect(process.env.DB_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      bufferCommands: false,
-      serverSelectionTimeoutMS: 5000
-    }).then(() => mongoose);
-    await conn;
+  
+  // connect mongodb
+  await mongo.connect();
+
+  if(!event) return { 'statusCode': 400, 'body': 'Missing query' };
+  console.log(event);
+  if(!funcMapper.hasOwnProperty(event.query))
+    return { 'statusCode': 400, 'body': 'Bad query' };
+
+  try{
+    const res = await funcMapper[event.query](event.param);
+    return { 'statusCode': 200, 'body': res };
+  }catch(e){
+    ctx.captureError(e);
   }
-  return { 'statusCode': 200, 'body': JSON.stringify(await er.getUserNum('화이트모카')) };
 };
