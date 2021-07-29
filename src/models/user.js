@@ -45,7 +45,7 @@ const User = new Schema({
   }],
   recentGames: [Playdata],
   recentGamesNext: Number,
-  collectGamesId: [Number]
+  collectedGamesId: [Number]
 }, { timestamps: true });
 
 global.User = global.User || mongoose.model('User', User);
