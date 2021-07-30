@@ -120,15 +120,33 @@ exports.getUserInfo = async (nickname, seasonId) => {
     console.log('getUserNum Response Time: ' + res.duration);
     if(res.data.code === 404) return { 'code': 404 }; // TODO: 제대로 처리하기
     userNum = res.data.user.userNum;
+    console.log(nickname + ' : ' + userNum);
   }catch(e){
     console.error(e);
   }
   
   try{
-    const userData = await Promise.allSettled([
-      // 유저인포 세개 다시
+    const res = await Promise.allSettled([
+      er.get(`/rank/${userNum}/${seasonId}/1`),
+      er.get(`/rank/${userNum}/${seasonId}/2`),
+      er.get(`/rank/${userNum}/${seasonId}/3`),
+	    er.get(`user/stats/${userNum}/${seasonId}`)
     ]);
-    return userData;
+    const data = res.map(
+      (res) => {
+        if(res.status === 'fulfilled'){
+          console.log('getUserInfo Response Time:' + res.value.duration);
+          return res.value.data;
+        }else{
+          console.log('getUserInfo Response Time:' + res.reason.duration);
+          console.log(res.reason);
+          return { 'code': 500 }; // TODO: 잘 처리하기
+        }
+      }
+    );
+    const userRank = [ data[0], data[1], data[2] ];
+    const userStats = data[3];
+    return { userNum, nickname, userRank, userStats };
   }catch(e){
     console.error(e);
   }

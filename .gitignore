@@ -1,6 +1,10 @@
-#node.js module foler
+# node.js module foler
 /node_modules
 /.serverless
 
-#env file
+# env file
 .env
+
+# test files
+test.json
+test.txt

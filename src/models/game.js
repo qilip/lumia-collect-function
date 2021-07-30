@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const Playdata = require('./playdata.js');
+const Playdata = require('./playdata.js').Schema;
 
 const Game = mongoose.Schema({
   gameId: Number,

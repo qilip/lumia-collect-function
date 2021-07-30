@@ -48,5 +48,26 @@ const User = new Schema({
   collectedGamesId: [Number]
 }, { timestamps: true });
 
+// Model methods
+
+User.statics.findByNickname = (nickname) => {
+  return this.findOne({nickname}).exec();
+};
+
+User.statics.findByUserNum = (userNum) => {
+  return this.findOne({userNum}).exec();
+};
+
+User.statics.newUser = (userData) => {
+  const user = new this({
+    userNum,
+    nickname,
+    userRank: userData.data,
+    userStats
+    
+  });
+  return user.save();
+};
+
 global.User = global.User || mongoose.model('User', User);
 module.exports = global.User;
