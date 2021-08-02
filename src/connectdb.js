@@ -7,6 +7,7 @@ exports.connect = async () => {
     conn = mongoose.connect(process.env.DB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useCreateIndex: true,
       bufferCommands: false,
       serverSelectionTimeoutMS: 5000
     }).then(() => mongoose);

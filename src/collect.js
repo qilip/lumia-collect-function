@@ -5,9 +5,11 @@ const funcMapper = {
   getUserNum: p => er.getUserNum(p.nickname),
   getUserRank: p => er.getUserRank(p.userNum, p.seasonId),
   getUserStats: p => er.getUserStats(p.userNum, p.seasonId),
-  getUserGames: p => er.getUserGames(p.userNum, p.next),
-  getGame: p => er.getGame(p.gameId),
-  getRoute: p => er.getRoute(p.gameId),
+  getUserGames: p => er.getUserGames(p.userNum, p.start),
+  getGame: p => ctrl.getGame(p.gameId),
+  getRoute: p => ctrl.getRoute(p.routeId),
+  getUserRecentGames: p => er.getUserRecentGames(p.userNum, p.start, p.limit),
+  getUserSeason: p => ctrl.getUserSeason(p.userNum, p.seasonId),
   getUserInfo: p => ctrl.getUserInfo(p.nickname, p.seasonId)
 };
 
