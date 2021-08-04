@@ -19,6 +19,14 @@ service: lumia-collect
 # Check out our docs for more details
 frameworkVersion: '2'
 
+plugins:
+  - serverless-prune-plugin
+  
+custom:
+  prune:
+    automatic: true
+    number: 5
+
 provider:
   name: aws
   runtime: nodejs14.x

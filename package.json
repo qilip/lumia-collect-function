@@ -19,5 +19,9 @@
   "dependencies": {
     "axios": "^0.21.1",
     "mongoose": "^5.13.3"
+  },
+  "devDependencies": {
+    "serverless": "^2.52.1",
+    "serverless-prune-plugin": "^1.5.1"
   }
 }
