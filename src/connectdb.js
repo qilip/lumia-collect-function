@@ -9,7 +9,7 @@ exports.connect = async () => {
       useUnifiedTopology: true,
       useCreateIndex: true,
       bufferCommands: false,
-      serverSelectionTimeoutMS: 5000
+      serverSelectionTimeoutMS: 3000
     }).then(() => mongoose);
     await conn;
   }

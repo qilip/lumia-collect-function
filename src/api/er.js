@@ -197,7 +197,7 @@ exports.getUserRecentGames = async (userNum, start, limit) => {
     return {
       'erCode': res.data.code,
       'message': res.data.message,
-      'data': { 'games': res.data.userGames }
+      'data': { games }
     };
   }catch(e){
     console.error(e);
