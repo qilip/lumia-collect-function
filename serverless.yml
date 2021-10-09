@@ -66,7 +66,7 @@ provider:
 
 functions:
   collect:
-    handler: src/collect.handler
+    handler: src/index.handler
     description: 'Lumia Collect Function'
     reservedConcurrency: 100
 
